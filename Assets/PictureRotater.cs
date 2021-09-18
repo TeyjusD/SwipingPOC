@@ -18,6 +18,7 @@ public class PictureRotater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("testing git");
         topImageIndex = -2;
         bottomImageIndex = Panels.Count - 3;
         for(int i = 0;i < OrderedPanels.Count;i++)  

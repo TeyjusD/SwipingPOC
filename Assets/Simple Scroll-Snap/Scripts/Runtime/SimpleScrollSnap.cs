@@ -51,6 +51,9 @@ namespace DanielLochner.Assets.SimpleScrollSnap
         private ScrollRect scrollRect;
         private Vector2 previousContentAnchoredPosition, velocity;
         private Dictionary<int, Graphic[]> panelGraphics = new Dictionary<int, Graphic[]>();
+
+        public PictureRotater PicRot;
+        public bool isFirstTime = true;
         #endregion
 
         #region Properties
@@ -113,6 +116,10 @@ namespace DanielLochner.Assets.SimpleScrollSnap
         private void Awake()
         {
             Initialize();
+            PicRot = GameObject.Find("Manager").GetComponent<PictureRotater>();
+            if(PicRot != null){
+                Debug.Log("Pic rot is initialized");
+            }
         }
         private void Start()
         {
@@ -488,28 +495,51 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                         if (DisplacementFromCenter(i).x > Content.rect.width / 2f)
                         {
                             PanelsRT[i].anchoredPosition -= new Vector2(contentLength, 0);
+                            
                         }
                         else if (DisplacementFromCenter(i).x < Content.rect.width / -2f)
                         {
+                            
                             PanelsRT[i].anchoredPosition += new Vector2(contentLength, 0);
+                            
                         }
                     }
                 }
                 else if (movementAxis == MovementAxis.Vertical)
                 {
+                    
                     for (int i = 0; i < NumberOfPanels; i++)
                     {
                         if (DisplacementFromCenter(i).y > Content.rect.height / 2f)
-                        {
+                        {   //scroll down
                             PanelsRT[i].anchoredPosition -= new Vector2(0, contentLength);
-                            Debug.Log(i + "is changing");
+                            Debug.Log("i : " + i);
+                            if(isFirstTime == false){
+                                PicRot.changeTex(i, PicRot.GetBottomIndex() + 1);
+                                PicRot.IncBottom();
+                                PicRot.IncTop();
+                                TouchScript.isgoingup=false;
+                            }
+                            
+                            
+                            
                         }
                         else if (DisplacementFromCenter(i).y < Content.rect.height / -2f)
                         {
+                            //scroll up
+                            Debug.Log("[simplescrollsnap] it is here");
                             PanelsRT[i].anchoredPosition += new Vector2(0, contentLength);
+                            if(isFirstTime == false){
+                                PicRot.changeTex(i, PicRot.GetTopIndex() - 1);
+                                PicRot.decTop();
+                                PicRot.decBot();
+                                TouchScript.isgoingdown = false;
+                            }
+                            
                             //Debug.Log(i + "is changing");
                         }
                     }
+                    isFirstTime = false;
                 }
             }
         }

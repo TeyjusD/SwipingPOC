@@ -12,19 +12,48 @@ public class PictureRotater : MonoBehaviour
     private List<Sprite> cheem;
 
     public List<Image> Panels;
-    public static int c=0;
+    public List<Image> OrderedPanels;
+    public  int topImageIndex = 0;
+    public  int bottomImageIndex = 2;
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0;i < Panels.Count;i++)  
+        topImageIndex = -2;
+        bottomImageIndex = Panels.Count - 3;
+        for(int i = 0;i < OrderedPanels.Count;i++)  
         {  
-            Panels[i].sprite = cheem[i];
-        }  
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+            OrderedPanels[i].sprite = cheem[i];
+        }
         
     }
+
+    public  int GetTopIndex(){
+        return topImageIndex;
+    }
+
+    public  int GetBottomIndex(){
+        return bottomImageIndex;
+    }
+
+    public  void IncTop(){
+        topImageIndex += 1;
+    }
+
+    public  void IncBottom(){
+        bottomImageIndex += 1;
+    }
+
+    public  void decTop(){
+        topImageIndex -= 1;
+    }
+
+    public  void decBot(){
+        bottomImageIndex -= 1;
+    }
+
+    public void changeTex(int PanelIndex, int ImageIndex){
+        if(PanelIndex < 0 || ImageIndex < 0)return;
+        Panels[PanelIndex].sprite = cheem[ImageIndex];
+    }
+    
 }

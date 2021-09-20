@@ -52,7 +52,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
         private Vector2 previousContentAnchoredPosition, velocity;
         private Dictionary<int, Graphic[]> panelGraphics = new Dictionary<int, Graphic[]>();
 
-        public PictureRotater PicRot;
+        public VideoRotator VidRot;
         public bool isFirstTime = true;
         #endregion
 
@@ -116,8 +116,8 @@ namespace DanielLochner.Assets.SimpleScrollSnap
         private void Awake()
         {
             Initialize();
-            PicRot = GameObject.Find("Manager").GetComponent<PictureRotater>();
-            if(PicRot != null){
+            VidRot = GameObject.Find("Manager").GetComponent<VideoRotator>();
+            if(VidRot != null){
                 Debug.Log("Pic rot is initialized");
             }
         }
@@ -134,6 +134,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
         }
         private void Update()
         {
+            Debug.Log("current panel  : " + CurrentPanel);
             if (NumberOfPanels == 0) return;
 
             OnOcclusionCulling();
@@ -381,6 +382,8 @@ namespace DanielLochner.Assets.SimpleScrollSnap
             }
             return panelNumber;
         }
+
+
         private void DetermineVelocity()
         {
             Vector2 displacement = Content.anchoredPosition - previousContentAnchoredPosition;
@@ -513,11 +516,10 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                         if (DisplacementFromCenter(i).y > Content.rect.height / 2f)
                         {   //scroll down
                             PanelsRT[i].anchoredPosition -= new Vector2(0, contentLength);
-                            Debug.Log("i : " + i);
                             if(isFirstTime == false){
-                                PicRot.changeTex(i, PicRot.GetBottomIndex() + 1);
-                                PicRot.IncBottom();
-                                PicRot.IncTop();
+                                VidRot.changeTex(i, VidRot.GetBottomIndex() + 1);
+                                VidRot.IncBottom();
+                                VidRot.IncTop();
                                 TouchScript.isgoingup=false;
                             }
                             
@@ -527,12 +529,11 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                         else if (DisplacementFromCenter(i).y < Content.rect.height / -2f)
                         {
                             //scroll up
-                            Debug.Log("[simplescrollsnap] it is here");
                             PanelsRT[i].anchoredPosition += new Vector2(0, contentLength);
                             if(isFirstTime == false){
-                                PicRot.changeTex(i, PicRot.GetTopIndex() - 1);
-                                PicRot.decTop();
-                                PicRot.decBot();
+                                VidRot.changeTex(i, VidRot.GetTopIndex() - 1);
+                                VidRot.decTop();
+                                VidRot.decBot();
                                 TouchScript.isgoingdown = false;
                             }
                             

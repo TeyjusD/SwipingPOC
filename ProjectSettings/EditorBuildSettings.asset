@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/SamplesResources/Scenes/0-Main.unity
+    guid: a09cb257d566c489595b16ab37547666
+  - enabled: 1
+    path: Assets/Simple Scroll-Snap/Examples/Example 2 (iOS Home Screen)/Scenes/LoadingScreen.unity
+    guid: b11c2fe2c657c8b44a8cb7b2214b2083
+  - enabled: 1
+    path: Assets/Simple Scroll-Snap/Examples/Example 2 (iOS Home Screen)/Scenes/Example
+      2 (iOS Home Screen).unity
+    guid: a959c195393d7ad40a043027181ded5d
   m_configObjects: {}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DanielLochner.Assets.SimpleScrollSnap;
 
 public class TouchScript : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class TouchScript : MonoBehaviour
     public float SpeedThreshold = 2f;
     public InputManager Im;
     public float currspeed;
-    public ScrollDetail ss;
     public static bool isgoingup=false;
     public static bool isgoingdown=false;
     bool ismoving=false;
     public int c=0;
+    public int maxsize = 20;
+
     void Start(){
+        maxsize = ApiManager.Reels.Length - 1;
         startTouch = Vector2.zero;
     }
     // Start is called before the first frame update
@@ -23,30 +26,24 @@ public class TouchScript : MonoBehaviour
             Touch t = Input.touches[0];
             currspeed = (t.deltaPosition.y) / (t.deltaTime * Screen.height);
             
-            if(currspeed > SpeedThreshold && !isgoingup && c<20 && !ismoving){
+            if(currspeed > SpeedThreshold && !isgoingup && c<maxsize && !ismoving){
                 Im.GotoPrev();
-                ss.scrolldown();
                 isgoingup=true;
                 ismoving=true;
                 c++;
-                //Debug.Log("moving down");
+                Debug.Log("moving down" + c);
 
             }else if(currspeed < -1* SpeedThreshold && !isgoingdown && c>0 && !ismoving){
                         
                 Im.GotoNext();
-                ss.scrollup();
                 isgoingdown = true;
                 ismoving=true;
                 c--;
-                //Debug.Log("moving up");
             }
 
             if(t.phase == TouchPhase.Ended){
                 ismoving=false;
             }
-            // if(t.deltaPosition.y){
-
-            // }
 
             
         }

@@ -9,10 +9,10 @@ public class PictureRotater : MonoBehaviour
    
 
     [SerializeField]
-    private List<Sprite> cheem;
+    private List<Texture> cheem;
 
-    public List<Image> Panels;
-    public List<Image> OrderedPanels;
+    public List<RawImage> Panels;
+    public List<RawImage> OrderedPanels;
     public  int topImageIndex = 0;
     public  int bottomImageIndex = 2;
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class PictureRotater : MonoBehaviour
         bottomImageIndex = Panels.Count - 3;
         for(int i = 0;i < OrderedPanels.Count;i++)  
         {  
-            OrderedPanels[i].sprite = cheem[i];
+            OrderedPanels[i].texture = cheem[i];
         }
         
     }
@@ -54,7 +54,7 @@ public class PictureRotater : MonoBehaviour
 
     public void changeTex(int PanelIndex, int ImageIndex){
         if(PanelIndex < 0 || ImageIndex < 0)return;
-        Panels[PanelIndex].sprite = cheem[ImageIndex];
+        Panels[PanelIndex].texture = cheem[ImageIndex];
     }
     
 }

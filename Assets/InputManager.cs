@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
    [SerializeField]
    private SimpleScrollSnap ss;
 
+    //new change
+
    public  void GotoNext(){
        ss.GoToNextPanel();       
    }
